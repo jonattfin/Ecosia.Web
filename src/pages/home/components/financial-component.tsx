@@ -63,10 +63,10 @@ const Component = ({
 };
 
 const getPieData = (report: ReportData) => {
-  return report.investments.map(({ name, value }) => {
+  return report.investmentsInCategories.map(({ categoryName, amount: value }) => {
     return {
-      id: name,
-      label: name,
+      id: categoryName,
+      label: categoryName,
       value,
     };
   });

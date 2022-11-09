@@ -38,11 +38,11 @@ export default function Component({ t, reports }: ReportsProps) {
   const currentReport = getReport();
 
   const getPieData = () => {
-    return currentReport.investments.map(({ name, value }) => {
+    return currentReport.investmentsInCategories.map(({ categoryName, amount }) => {
       return {
-        id: name,
-        label: name,
-        value,
+        id: categoryName,
+        label: categoryName,
+        value: amount,
       };
     });
   };
@@ -60,8 +60,8 @@ export default function Component({ t, reports }: ReportsProps) {
         >
           {reports.map((report, index) => {
             return (
-              <MenuItem key={`month_year${report.month}`} value={index}>
-                {`${report.month} ${report.year}`}
+              <MenuItem key={`month_${report.month}_year${report.year}`} value={index}>
+                {`${report.month}/${report.year}`}
               </MenuItem>
             );
           })}
@@ -77,7 +77,7 @@ export default function Component({ t, reports }: ReportsProps) {
             <CardDiv>
               <h1>
                 {formatMoney(
-                  _.sumBy(currentReport.investments, (i) => i.value)
+                  _.sumBy(currentReport.investmentsInCategories, (i) => i.amount)
                 )}
               </h1>
             </CardDiv>
@@ -86,11 +86,11 @@ export default function Component({ t, reports }: ReportsProps) {
         </Card>
         <br />
         <CenteredContainerDiv>
-          {currentReport.investments.map(({ name, value }) => {
+          {currentReport.investmentsInCategories.map(({ categoryName, amount }) => {
             return (
-              <Fragment key={name}>
+              <Fragment key={categoryName}>
                 <SubtitleParagraph>
-                  {name} {formatMoney(value)}
+                  {categoryName} {formatMoney(amount)}
                 </SubtitleParagraph>
               </Fragment>
             );
@@ -104,10 +104,10 @@ export default function Component({ t, reports }: ReportsProps) {
               <h1>
                 {formatMoney(
                   _.sumBy(
-                    currentReport.investments.filter((i) =>
-                      i.name.toLowerCase().includes("trees")
+                    currentReport.investmentsInCategories.filter((i) =>
+                      i.categoryName.toLowerCase().includes("trees")
                     ),
-                    (i) => i.value
+                    (i) => i.amount
                   )
                 )}
               </h1>
@@ -119,15 +119,15 @@ export default function Component({ t, reports }: ReportsProps) {
           <PieComponent data={getPieData()} />
         </PieContainerDiv>
       </Grid>
-      {currentReport.countries.length > 0 && (
+      {currentReport.investmentsInCountries.length > 0 && (
         <Grid item xs={4} xl={4}>
           <CenteredContainerDiv>
             Countries:
-            {currentReport.countries.map(({ name, value }) => {
+            {currentReport.investmentsInCountries.map(({ countryName, amount }) => {
               return (
-                <ChipContainer key={name}>
-                  <Chip label={name} />
-                  {formatMoney(value)}
+                <ChipContainer key={countryName}>
+                  <Chip label={countryName} />
+                  {formatMoney(amount)}
                 </ChipContainer>
               );
             })}

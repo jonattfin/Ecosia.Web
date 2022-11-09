@@ -47,7 +47,7 @@ export default function Component({ project }: ProjectProps) {
           </ProjectsHeaderDiv>
 
           <ProjectContainerDiv>
-            <img src={project.imageUrl} alt="something special"></img>
+            <img src={project.imageUrl} alt="something special" ></img>
             <Grid container justifyContent="center" alignItems="center">
               <Grid item xs={12} xl={4}>
                 <p>trees planted</p>

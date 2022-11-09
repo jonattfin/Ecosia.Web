@@ -1,19 +1,42 @@
+interface IMetadata {
+  page: number;
+  size: number;
+  count: number;
+}
+
+export interface ResultMetadata extends IMetadata {
+  searches: ResultQuery[];
+}
+
 export interface ResultQuery {
   url: string;
   snippet: string;
   name: string;
 }
 
-export interface KeyValuePair {
-  name: string;
-  value: number;
+export interface CountryInvestment {
+  countryName: string;
+  amount: number;
+}
+
+export interface CategoryInvestment {
+  categoryName: string;
+  amount: number;
+}
+
+export interface ReportMetadata extends IMetadata {
+  reports: ReportData[];
 }
 
 export interface ReportData {
   month: string;
   year: number;
-  investments: KeyValuePair[];
-  countries: KeyValuePair[];
+  investmentsInCategories: CategoryInvestment[];
+  investmentsInCountries: CountryInvestment[];
+}
+
+export interface ProjectMetadata extends IMetadata {
+  projects: Project[];
 }
 
 export interface Project {

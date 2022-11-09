@@ -1,11 +1,11 @@
-import { Project, ReportData, ResultQuery } from "./interfaces";
+import {Project, ProjectMetadata, ReportData, ReportMetadata, ResultQuery} from "./interfaces";
 
 const environment = getEnvironment();
 
 export const httpBaseUrl = environment.httpBaseUrl;
 export const wssBaseUrl = environment.wssBaseUrl;
 
-export const fetchProjects = async (): Promise<Project[]> => {
+export const fetchProjects = async (): Promise<ProjectMetadata> => {
   const res = await fetch(`${httpBaseUrl}/project`);
   return res.json();
 };
@@ -22,8 +22,8 @@ export const fetchTags = async () => {
   return res.json();
 };
 
-export const fetchReports = async (): Promise<ReportData[]> => {
-  const res = await fetch(`${httpBaseUrl}/report`);
+export const fetchReports = async (size: number = 12): Promise<ReportMetadata> => {
+  const res = await fetch(`${httpBaseUrl}/report/?size=${size}`);
   return res.json();
 };
 
@@ -33,6 +33,12 @@ export const fetchReportById = async (
   const res = await fetch(`${httpBaseUrl}/report/${reportId}`);
   return res.json();
 };
+
+export const fetchLastReport = async (): Promise<ReportData> => {
+  const res = await fetch(`${httpBaseUrl}/report/last`);
+  return res.json();
+};
+
 
 export const searchByQueryAsync = async (
   query: string | undefined

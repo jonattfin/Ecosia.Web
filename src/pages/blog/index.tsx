@@ -16,22 +16,22 @@ export default function Component() {
   const {
     isLoading: projectsAreLoading,
     error: projectsError,
-    data: projects,
+    data: projectsData,
   } = useQuery("projects", fetchProjects);
 
   const {
     isLoading: reportsAreLoading,
     error: reportsError,
-    data: reports,
-  } = useQuery("reports", fetchReports);
+    data: reportsData,
+  } = useQuery("reports", () => fetchReports());
 
   if (projectsAreLoading || reportsAreLoading) return "Loading...";
-  if (projectsError || reportsError || !projects || !reports)
+  if (projectsError || reportsError || !projectsData || !reportsData)
     return "An error has occurred...";
 
   const props: BlogProps = {
-    projects,
-    reports: [...reports].reverse(),
+    projects : projectsData.projects,
+    reports: [...reportsData.reports],
     language,
     id: id == "projects" ? 0 : 1,
   };

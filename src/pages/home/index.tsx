@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import useWebSocket from "react-use-websocket";
+// import useWebSocket from "react-use-websocket";
 import { debounce } from "lodash";
 
 import HomeComponent from "./home-component";
@@ -13,8 +13,8 @@ export default function Component() {
   const [query, setQuery] = useState("");
   const [data, setData] = useState<ResultQuery[]>([]);
 
-  const [socketUrl] = useState(wssBaseUrl);
-  const { sendJsonMessage, lastMessage } = useWebSocket(socketUrl);
+  // const [socketUrl] = useState(wssBaseUrl);
+  // const { sendJsonMessage, lastMessage } = useWebSocket(socketUrl);
 
   const onSearch = (q: string) => {
     setQuery(q);
@@ -24,14 +24,14 @@ export default function Component() {
   const router = useRouter();
   const onSearchValueSelected = (q: string) => router.push(`/search/${q}`);
 
-  useEffect(() => {
-    if (!lastMessage) 
-      return;
-
-    const dataObj = JSON.parse(lastMessage.data);
-    console.log(dataObj);
-    setCounter(dataObj.data || 0);
-  }, [lastMessage]);
+  // useEffect(() => {
+  //   if (!lastMessage)
+  //     return;
+  //
+  //   const dataObj = JSON.parse(lastMessage.data);
+  //   console.log(dataObj);
+  //   setCounter(dataObj.data || 0);
+  // }, [lastMessage]);
 
   useEffect(() => {
     async function fetchData() {
@@ -41,9 +41,9 @@ export default function Component() {
     if (query.length > 0) fetchData();
   }, [query]);
 
-  useEffect(() => {
-    sendJsonMessage({ event: "events" });
-  }, []);
+  // useEffect(() => {
+  //   sendJsonMessage({ event: "events" });
+  // }, []);
 
   const language = useContext(LanguageContext);
 

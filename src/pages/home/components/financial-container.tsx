@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useQuery } from "react-query";
-import { fetchReportById } from "../../../api";
+import { fetchLastReport } from "../../../api";
 import FinancialComponent from "./financial-component";
 
 export default function Component({
@@ -12,10 +12,10 @@ export default function Component({
     data: report,
     isLoading: reportIsLoading,
     error: reportError,
-  } = useQuery(["report", 5], () => fetchReportById("5"));
+  } = useQuery(["fetchLastReport"], () => fetchLastReport());
 
   if (reportIsLoading) return <Fragment>Loading...</Fragment>;
-  if (reportError || !report) <Fragment>An error has occurred</Fragment>;
+  if (reportError || !report) return <Fragment>An error has occurred</Fragment>;
 
   return <FinancialComponent {...{ report, language }} />;
 }
