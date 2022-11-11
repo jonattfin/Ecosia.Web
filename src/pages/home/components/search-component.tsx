@@ -65,7 +65,7 @@ const Component = ({
                   <ListItemButton
                     onClick={() => onSearchValueSelected(item.snippet)}
                   >
-                    <ListItemText primary={item.snippet} />
+                    <ListItemText primary={item.name} />
                   </ListItemButton>
                 </ListItem>
               ))}
@@ -78,8 +78,8 @@ const Component = ({
           <div>
             <h1>{t("searchEngine")}</h1>
           </div>
-          <CounterTextDiv>{counter.toLocaleString()}</CounterTextDiv>
-          <div>{t("numberOfTrees")}</div>
+          {/*<CounterTextDiv>{counter.toLocaleString()}</CounterTextDiv>*/}
+          {/*<div>{t("numberOfTrees")}</div>*/}
         </Fragment>
       )}
     </MainSection>

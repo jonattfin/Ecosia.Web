@@ -38,6 +38,7 @@ export default function Component({ incrementTreeCount }: IndexSearchProps) {
       setResultsObject({ values: data.searches, totalEstimatedMatches: data.searches.length });
       setProgress(false);
     };
+
     if (id) {
       fetchData();
     }

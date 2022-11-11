@@ -21,8 +21,8 @@ const Component = ({ counter, t }: MapComponentProps) => {
     <section>
       <Grid container spacing={2}>
         <Grid item xs={12} xl={12}>
-          <MainTitleDiv data-test="map-title">{t("treesPlanted")}</MainTitleDiv>
-          <MainSubtitleKickDiv>{counter}</MainSubtitleKickDiv>
+          {/*<MainTitleDiv data-test="map-title">{t("treesPlanted")}</MainTitleDiv>*/}
+          {/*<MainSubtitleKickDiv>{counter}</MainSubtitleKickDiv>*/}
         </Grid>
         <Grid item xs={12} xl={3}>
           <TitleDiv>15 Million</TitleDiv>
