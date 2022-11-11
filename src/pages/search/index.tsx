@@ -1,27 +1,31 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { debounce } from "lodash";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
+import {debounce} from "lodash";
 
-import SearchComponent, { SearchProps } from "./search-component";
-import { searchByQueryAsync } from "../../api";
-import { ResultQuery } from "../../api/interfaces";
+import SearchComponent, {SearchProps} from "./search-component";
+import {searchByQueryAsync} from "../../api";
+import {ResultQuery} from "../../api/interfaces";
 
 interface IndexSearchProps {
   incrementTreeCount: () => void;
 }
 
 interface ResultsState {
-  totalEstimatedMatches: number;
-  values: ResultQuery[];
+  page: number;
+  size: number;
+  count: number;
+  searches: ResultQuery[];
 }
 
-export default function Component({ incrementTreeCount }: IndexSearchProps) {
+export default function Component({incrementTreeCount}: IndexSearchProps) {
   const router = useRouter();
-  const { id } = router.query;
+  const {id} = router.query;
 
   const [resultsObject, setResultsObject] = useState<ResultsState>({
-    totalEstimatedMatches: 0,
-    values: [],
+    page: 1,
+    size: 0,
+    count: 0,
+    searches: [],
   });
 
   const [progress, setProgress] = useState(false);
@@ -35,7 +39,7 @@ export default function Component({ incrementTreeCount }: IndexSearchProps) {
     const fetchData = async () => {
       setProgress(true);
       const data = await searchByQueryAsync(id?.toString());
-      setResultsObject({ values: data.searches, totalEstimatedMatches: data.searches.length });
+      setResultsObject(data);
       setProgress(false);
     };
 

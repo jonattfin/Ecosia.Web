@@ -1,27 +1,30 @@
-import { Pagination, Stack } from "@mui/material";
-import { useState } from "react";
+import {Pagination, Stack} from "@mui/material";
+import {useState} from "react";
 import styled from "@emotion/styled";
+import {ResultQuery} from "../../../api/interfaces";
 
 export interface SearchListProps {
-  totalEstimatedMatches: number;
-  values: Array<any>;
+  page: number;
+  size: number;
+  count: number;
+  searches: ResultQuery[];
 }
 
 export default function Component({
-  totalEstimatedMatches,
-  values,
-}: SearchListProps) {
-  const [page, setPage] = useState(1);
+                                    page,
+                                    size,
+                                    count,
+                                    searches,
+                                  }: SearchListProps) {
 
-  const data = showWindow(values, PAGE_SIZE, page);
-  const numberOfPages = parseInt((values.length / PAGE_SIZE).toString(), 10);
-
-  const handleChange = (_ev: any, value: number) => setPage(value);
+  const handleChange = (_ev: any, value: number) => {
+    console.log(value)
+  };
 
   return (
     <ExtraSection>
       <Stack spacing={2}>
-        {data.map(({ url, snippet, name }, index) => (
+        {searches.map(({url, snippet, name}, index) => (
           <div key={`index_${index}`}>
             <NameDiv>
               <a href={url} target="_blank" rel="noreferrer">
@@ -37,12 +40,12 @@ export default function Component({
           </div>
         ))}
       </Stack>
-      <h5>{totalEstimatedMatches} results</h5>
+      <h5>{count} results</h5>
       <div>
         <Pagination
           variant="outlined"
           color="primary"
-          count={numberOfPages}
+          count={count / size}
           page={page}
           onChange={handleChange}
         />
@@ -51,7 +54,7 @@ export default function Component({
   );
 }
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 15;
 
 function showWindow(data: Array<any>, pageSize: number, pageNumber = 1) {
   return data.filter((_v, index) => {

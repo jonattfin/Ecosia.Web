@@ -41,9 +41,11 @@ export const fetchLastReport = async (): Promise<ReportData> => {
 
 
 export const searchByQueryAsync = async (
-  query: string | undefined
+  query: string | undefined,
+  size: number = 5,
+  page: number = 1
 ): Promise<SearchMetadata> => {
-  const res = await fetch(`${httpBaseUrl}/search?text=${query}&size=20`);
+  const res = await fetch(`${httpBaseUrl}/search?text=${query}&page=${page}&size=${size}`);
   return res.json();
 };
 
