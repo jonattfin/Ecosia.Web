@@ -4,7 +4,7 @@ interface IMetadata {
   count: number;
 }
 
-export interface ResultMetadata extends IMetadata {
+export interface SearchMetadata extends IMetadata {
   searches: ResultQuery[];
 }
 

@@ -36,7 +36,7 @@ export default function Component() {
   useEffect(() => {
     async function fetchData() {
       const fetchedData = await searchByQueryAsync(query);
-      setData(fetchedData);
+      setData(fetchedData.searches);
     }
     if (query.length > 0) fetchData();
   }, [query]);

@@ -35,7 +35,7 @@ export default function Component({ incrementTreeCount }: IndexSearchProps) {
     const fetchData = async () => {
       setProgress(true);
       const data = await searchByQueryAsync(id?.toString());
-      setResultsObject({ values: data, totalEstimatedMatches: data.length });
+      setResultsObject({ values: data.searches, totalEstimatedMatches: data.searches.length });
       setProgress(false);
     };
     if (id) {
